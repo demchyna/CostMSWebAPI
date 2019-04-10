@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: cms
+-- Host: localhost    Database: costms
 -- ------------------------------------------------------
 -- Server version	8.0.1-dmr-log
 
