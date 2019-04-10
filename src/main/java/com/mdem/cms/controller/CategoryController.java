@@ -91,7 +91,7 @@ public class CategoryController {
     @PostAuthorize("hasRole('ADMIN') or (hasRole('USER') and #userId == authentication.details.id)")
     @ApiOperation(value = "View a list of available categories for selected user", response = Iterable.class)
     public List<CategoryDto> getCategoriesByUserId(@PathVariable Long userId) {
-        List<Category> categories =  categoryService.getCategoryByUserId(userId);
+        List<Category> categories =  categoryService.getCategoriesByUserId(userId);
         List<CategoryDto> categoriesDto = new ArrayList<>();
         for (Category category : categories) {
             categoriesDto.add(CategoryTransformer.toCategoryDto(category));

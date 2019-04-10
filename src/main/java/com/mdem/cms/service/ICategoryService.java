@@ -5,5 +5,5 @@ import com.mdem.cms.model.Category;
 import java.util.List;
 
 public interface ICategoryService {
-    List<Category> getCategoryByUserId(long userId);
+    List<Category> getCategoriesByUserId(long userId);
 }

@@ -1,11 +1,11 @@
 package com.mdem.cms.service.impl;
 
-import com.mdem.cms.DAO.impl.CategoryDao;
+import com.mdem.cms.DAO.impl.IncomeDao;
 import com.mdem.cms.DAO.impl.UserDao;
 import com.mdem.cms.exception.DataNotFoundException;
-import com.mdem.cms.model.Category;
+import com.mdem.cms.model.Income;
 import com.mdem.cms.model.User;
-import com.mdem.cms.service.ICategoryService;
+import com.mdem.cms.service.IIncomeService;
 import com.mdem.cms.service.common.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,14 +17,14 @@ import java.util.List;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CategoryService extends AbstractService<Category, Long> implements ICategoryService {
+public class IncomeService extends AbstractService<Income, Long> implements IIncomeService {
 
-    private CategoryDao categoryDao;
+    private IncomeDao incomeDao;
     private UserDao userDao;
 
     @Autowired
-    public void setCategoryDao(CategoryDao categoryDao) {
-        this.categoryDao = categoryDao;
+    public void setIncomeDao(IncomeDao incomeDao) {
+        this.incomeDao = incomeDao;
     }
 
     @Autowired
@@ -34,11 +34,11 @@ public class CategoryService extends AbstractService<Category, Long> implements 
 
     @Override
     @Transactional
-    public List<Category> getCategoriesByUserId(long userId) {
+    public List<Income> getIncomesByUserId(long userId) {
         User user = userDao.getById(userId);
         if (user == null) {
             throw new DataNotFoundException("Record with id " + userId  +" not found in database");
         }
-        return categoryDao.getCategoriesByUserId(userId);
+        return incomeDao.getIncomesByUserId(userId);
     }
 }
