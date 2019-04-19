@@ -1,11 +1,11 @@
 package com.mdem.costms.service.impl;
 
-import com.mdem.costms.DAO.impl.OutlayDao;
+import com.mdem.costms.DAO.impl.FundsDao;
 import com.mdem.costms.DAO.impl.UserDao;
 import com.mdem.costms.exception.DataNotFoundException;
-import com.mdem.costms.model.Outlay;
+import com.mdem.costms.model.Funds;
 import com.mdem.costms.model.User;
-import com.mdem.costms.service.IOutlayService;
+import com.mdem.costms.service.IFundsService;
 import com.mdem.costms.service.common.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,14 +17,14 @@ import java.util.List;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class OutlayService extends AbstractService<Outlay, Long> implements IOutlayService {
+public class FundsService extends AbstractService<Funds, Long> implements IFundsService {
 
-    private OutlayDao outlayDao;
+    private FundsDao fundsDao;
     private UserDao userDao;
 
     @Autowired
-    public void setOutlayDao(OutlayDao outlayDao) {
-        this.outlayDao = outlayDao;
+    public void setFundsDao(FundsDao fundsDao) {
+        this.fundsDao = fundsDao;
     }
 
     @Autowired
@@ -34,11 +34,11 @@ public class OutlayService extends AbstractService<Outlay, Long> implements IOut
 
     @Override
     @Transactional
-    public List<Outlay> getOutlaysByUserId(long userId) {
+    public List<Funds> getFundsByUserId(long userId) {
         User user = userDao.getById(userId);
         if (user == null) {
             throw new DataNotFoundException("Record with id " + userId  +" not found in database");
         }
-        return outlayDao.getOutlaysByUserId(userId);
+        return fundsDao.getFundsByUserId(userId);
     }
 }

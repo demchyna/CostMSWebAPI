@@ -1,33 +1,37 @@
-package com.mdem.costms.model;
+package com.mdem.costms.DTO;
 
-import com.mdem.costms.model.common.IEntity;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-public class Income implements IEntity {
+public class FundsDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     private java.sql.Date date;
     private String source;
     private BigDecimal value;
     private String currency;
+    private String type;
     private String description;
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    public FundsDto() {
+    }
 
-    @Override
+    public FundsDto(Long id, Date date, String source, BigDecimal value, String currency, String type, String description, Long userId) {
+        this.id = id;
+        this.date = date;
+        this.source = source;
+        this.value = value;
+        this.currency = currency;
+        this.type = type;
+        this.description = description;
+        this.userId = userId;
+    }
+
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -64,6 +68,14 @@ public class Income implements IEntity {
         this.currency = currency;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -72,11 +84,11 @@ public class Income implements IEntity {
         this.description = description;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

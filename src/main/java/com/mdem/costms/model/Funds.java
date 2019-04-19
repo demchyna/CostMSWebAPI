@@ -1,12 +1,15 @@
 package com.mdem.costms.model;
 
 import com.mdem.costms.model.common.IEntity;
+import com.mdem.costms.util.FundsType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-public class Outlay implements IEntity {
+@Entity
+@Table(name = "funds")
+public class Funds implements IEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +19,9 @@ public class Outlay implements IEntity {
     private String source;
     private BigDecimal value;
     private String currency;
+
+    @Enumerated(EnumType.STRING)
+    private FundsType type;
     private String description;
 
     @ManyToOne
@@ -62,6 +68,14 @@ public class Outlay implements IEntity {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public FundsType getType() {
+        return type;
+    }
+
+    public void setType(FundsType type) {
+        this.type = type;
     }
 
     public String getDescription() {
