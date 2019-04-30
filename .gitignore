@@ -11,6 +11,8 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+classes
+target
 *.iws
 *.iml
 *.ipr
