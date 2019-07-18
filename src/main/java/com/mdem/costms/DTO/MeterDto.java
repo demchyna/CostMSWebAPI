@@ -8,7 +8,7 @@ public class MeterDto {
 
     private Long id;
 
-    @NotNull
+    @NotNull(message = "{meter.name.notNull}")
     @Pattern(regexp = "[a-zA-Zа-яА-ЯіІїЇєЄ]+.*", message = "{meter.name.pattern}")
     @Size(min = 2, max = 31, message = "{meter.name.size}")
     private String name;
