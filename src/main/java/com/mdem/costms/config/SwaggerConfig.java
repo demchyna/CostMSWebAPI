@@ -52,7 +52,7 @@ public class SwaggerConfig {
                 new Contact("Mykola Demchyna","http://demchyna.com.ua", "mykolademchyna@gmail.com"),
                 "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0",
-                new ArrayList<VendorExtension>(Collections.emptyList()));
+                new ArrayList<>(Collections.emptyList()));
     }
 
     private ApiKey apiKey() {

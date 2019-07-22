@@ -19,13 +19,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 
 @RestController
+@SuppressWarnings("deprecation")
 @Api(tags = {"Registration"}, description = "Operation for users registration")
 @PropertySource("classpath:messages.properties")
 public class RegistrationController {
 
-    private UserService userService;
-    private RoleService roleService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserService userService;
+    private final RoleService roleService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Value("${user.password.pattern}")
     private String USER_PASSWORD_PATTERN;

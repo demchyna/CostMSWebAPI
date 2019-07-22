@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 @RestController
 @RequestMapping("api/funds")
 @Api(tags = {"Funds"}, description = "Operations for work with funds")
 public class FundsController {
-    private FundsService fundsService;
-    private UserService userService;
+    private final FundsService fundsService;
+    private final UserService userService;
 
     @Autowired
     public FundsController(FundsService fundsService, UserService userService) {
@@ -76,7 +77,7 @@ public class FundsController {
     @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "View a list of available funds", response = Iterable.class)
     public List<FundsDto> getAllFunds() {
-        List<Funds> fundsList = fundsService.getAll();
+        @SuppressWarnings("unchecked") List<Funds> fundsList = fundsService.getAll();
         List<FundsDto> fundsDto = new ArrayList<>();
         for (Funds funds : fundsList) {
             fundsDto.add(FundsTransformer.toFundsDto(funds));

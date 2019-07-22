@@ -18,13 +18,14 @@ import java.util.List;
 public abstract class AbstractService<T extends IEntity, K extends Serializable> implements IAbstractService<T, K> {
 
     private IAbstractDao<T, K> abstractDao;
-    private Class<T> entityType;
+    private final Class<T> entityType;
 
     @Autowired
     public void setAbstractDao(IAbstractDao<T, K> abstractDao) {
         this.abstractDao = abstractDao;
     }
 
+    @SuppressWarnings("unchecked")
     public AbstractService() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         this.entityType = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
@@ -32,6 +33,7 @@ public abstract class AbstractService<T extends IEntity, K extends Serializable>
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public void create(T entity) throws ConflictDataException {
         if (entity.getId() != null) {
             T extEntity = abstractDao.getById((K) entity.getId());
@@ -58,6 +60,7 @@ public abstract class AbstractService<T extends IEntity, K extends Serializable>
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public void update(T entity) throws DataNotFoundException {
         T updEntity = abstractDao.getById((K) entity.getId());
         if (updEntity != null) {
@@ -69,6 +72,7 @@ public abstract class AbstractService<T extends IEntity, K extends Serializable>
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public void delete(T entity) throws DataNotFoundException {
         T delEntity = abstractDao.getById((K) entity.getId());
         if (delEntity != null) {
@@ -80,6 +84,7 @@ public abstract class AbstractService<T extends IEntity, K extends Serializable>
 
     @Override
     @Transactional
+    @SuppressWarnings("unchecked")
     public List getAll() throws NoDataException {
         List<T> categories = abstractDao.getAll();
         if (!categories.isEmpty()) {

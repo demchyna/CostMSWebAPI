@@ -14,10 +14,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/unit")
+@SuppressWarnings("deprecation")
 @Api(tags = {"Unit"}, description = "Operations for work with units of measurement")
 public class UnitController {
 
-    private IAbstractService<Unit, Long> unitService;
+    private final IAbstractService<Unit, Long> unitService;
 
     @Autowired
     public UnitController(IAbstractService<Unit, Long> unitService) {

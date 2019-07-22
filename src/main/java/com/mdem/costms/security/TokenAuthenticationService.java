@@ -34,36 +34,30 @@ public class TokenAuthenticationService {
     }
 
     public static String createToken(User user) {
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(user.getUsername())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .claim("id", user.getId())
                 .claim("roles", user.getAuthorities())
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
-
-        return token;
     }
 
-    public static String refreshToken(Authentication authentication) {
-        String token = Jwts.builder()
+    static String refreshToken(Authentication authentication) {
+        return Jwts.builder()
                 .setSubject(authentication.getName())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .claim("id", ((UserProxy)authentication.getDetails()).getId())
                 .claim("roles", authentication.getAuthorities())
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
-
-        return token;
     }
 
-    public static String getUsernameFromToken(String token) {
-        String username = Jwts.parser()
+    static String getUsernameFromToken(String token) {
+        return Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                 .getBody().getSubject();
-
-        return username;
     }
 
     public static Long getUserIdFromToken(String token) {
@@ -75,12 +69,11 @@ public class TokenAuthenticationService {
         return id.longValue();
     }
 
-    public static List<Role> getRolesFromToken(String token) {
-        List roles = (List) Jwts.parser()
+    @SuppressWarnings("unchecked")
+    static List<Role> getRolesFromToken(String token) {
+        return (List) Jwts.parser()
                 .setSigningKey(SECRET)
                 .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                 .getBody().get("roles");
-
-        return roles;
     }
 }

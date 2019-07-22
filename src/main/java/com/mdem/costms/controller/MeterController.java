@@ -22,12 +22,13 @@ import java.util.List;
 
 @RestController("meterController")
 @RequestMapping("api/meter")
+@SuppressWarnings("deprecation")
 @Api(tags = {"Meter"}, description = "Operations for work with meters")
 public class MeterController {
 
-    private MeterService meterService;
-    private CategoryService categoryService;
-    private UnitService unitService;
+    private final MeterService meterService;
+    private final CategoryService categoryService;
+    private final UnitService unitService;
 
     @Autowired
     public MeterController(MeterService meterService, CategoryService categoryService, UnitService unitService) {
@@ -84,7 +85,7 @@ public class MeterController {
     @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "View a list of available meters", response = Iterable.class)
     public List<MeterDto> getAllMeters() {
-        List<Meter> meters = meterService.getAll();
+        @SuppressWarnings("unchecked") List<Meter> meters = meterService.getAll();
         List<MeterDto> metersDto = new ArrayList<>();
         for (Meter meter : meters) {
             metersDto.add(MeterTransformer.toMeterDto(meter));

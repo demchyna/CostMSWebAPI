@@ -19,10 +19,11 @@ import java.util.List;
 
 @RestController("roleController")
 @RequestMapping("api/role")
+@SuppressWarnings("deprecation")
 @Api(tags = {"Role"}, description = "Operations for work with user roles")
 public class RoleController {
 
-    private IAbstractService<Role, Long> roleService;
+    private final IAbstractService<Role, Long> roleService;
 
     @Autowired
     public RoleController(IAbstractService<Role, Long> roleService) {

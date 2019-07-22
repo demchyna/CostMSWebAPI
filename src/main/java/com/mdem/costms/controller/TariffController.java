@@ -22,12 +22,13 @@ import java.util.List;
 
 @RestController("tariffController")
 @RequestMapping("api/tariff")
+@SuppressWarnings("deprecation")
 @Api(tags = {"Tariff"}, description = "Operations for work with tariffs on services")
 public class TariffController {
 
-    private TariffService tariffService;
-    private CategoryService categoryService;
-    private UnitService unitService;
+    private final TariffService tariffService;
+    private final CategoryService categoryService;
+    private final UnitService unitService;
 
     @Autowired
     public TariffController(TariffService tariffService, CategoryService categoryService, UnitService unitService) {
@@ -84,7 +85,7 @@ public class TariffController {
     @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "View a list of available tariffs", response = Iterable.class)
     public List<TariffDto> getAllTariffs() {
-        List<Tariff> tariffs = tariffService.getAll();
+        @SuppressWarnings("unchecked") List<Tariff> tariffs = tariffService.getAll();
         List<TariffDto> metersDto = new ArrayList<>();
         for (Tariff tariff : tariffs) {
             metersDto.add(TariffTransformer.toTariffDto(tariff));

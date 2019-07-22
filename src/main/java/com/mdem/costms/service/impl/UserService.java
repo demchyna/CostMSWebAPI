@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserService extends AbstractService<User, Long> implements IUserService, UserDetailsService {
 
-    private UserDao userDao;
+    private final UserDao userDao;
 
     @Autowired
     public UserService(UserDao userDao) {

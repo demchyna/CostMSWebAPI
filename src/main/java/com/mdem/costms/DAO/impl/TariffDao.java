@@ -12,10 +12,10 @@ import java.util.List;
 public class TariffDao extends AbstractDao<Tariff, Long> implements ITariffDao {
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Tariff> getTariffsByCategoryId(long categoryId) {
         Query query = getSession().createQuery("FROM " + Tariff.class.getName() + " where category_id = :category_id");
         query.setParameter("category_id", categoryId);
-
         return (List<Tariff>) query.getResultList();
     }
 }

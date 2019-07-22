@@ -22,12 +22,13 @@ import java.util.List;
 
 @RestController("indicatorController")
 @RequestMapping("api/indicator")
+@SuppressWarnings("deprecation")
 @Api(tags = {"Indicator"}, description = "Operations for work with indicators of meters")
 public class IndicatorController {
 
-    private IndicatorService indicatorService;
-    private MeterService meterService;
-    private TariffService tariffService;
+    private final IndicatorService indicatorService;
+    private final MeterService meterService;
+    private final TariffService tariffService;
 
     @Autowired
     public IndicatorController(IndicatorService indicatorService, MeterService meterService, TariffService tariffService) {
@@ -88,7 +89,7 @@ public class IndicatorController {
     @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "View a list of available indicators", response = Iterable.class)
     public List<IndicatorDto> getAllIndicators() {
-        List<Indicator> indicators = indicatorService.getAll();
+        @SuppressWarnings("unchecked") List<Indicator> indicators = indicatorService.getAll();
         List<IndicatorDto> indicatorsDto = new ArrayList<>();
         return getIndicatorsDto(indicators, indicatorsDto);
     }

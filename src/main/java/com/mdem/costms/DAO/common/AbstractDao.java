@@ -15,8 +15,9 @@ import java.util.List;
 public abstract class AbstractDao<T extends IEntity, K extends Serializable> implements IAbstractDao<T, K> {
 
     private static SessionFactory sessionFactory;
-    private Class<T> entityType;
+    private final Class<T> entityType;
 
+    @SuppressWarnings("unchecked")
     public AbstractDao() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         this.entityType = (Class<T>) genericSuperclass.getActualTypeArguments()[0];

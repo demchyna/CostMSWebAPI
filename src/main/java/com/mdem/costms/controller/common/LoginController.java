@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
+@SuppressWarnings("deprecation")
 @Api(tags = {"LogIn"}, description = "Operation for login registered users")
 public class LoginController {
     @Value("${security.headerName}")
     private String HEADER_NAME;
 
-    private UserService userService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public LoginController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {

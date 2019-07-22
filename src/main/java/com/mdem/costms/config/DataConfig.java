@@ -21,7 +21,7 @@ import java.util.Properties;
 })
 public class DataConfig {
 
-    private Environment environment;
+    private final Environment environment;
 
     @Autowired
     public DataConfig(Environment environment) {

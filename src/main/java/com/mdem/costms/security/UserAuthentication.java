@@ -13,13 +13,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
-public class UserAuthentication implements Authentication {
+class UserAuthentication implements Authentication {
 
-    private String token;
+    private final String token;
     private UserDetails userDetails;
     private boolean authenticated;
 
-    public UserAuthentication(String token) {
+    UserAuthentication(String token) {
         this.token = token;
     }
 
@@ -38,7 +38,7 @@ public class UserAuthentication implements Authentication {
         return userDetails;
     }
 
-    public void setPrincipal(UserDetails userDetails) {
+    void setPrincipal(UserDetails userDetails) {
         this.userDetails = userDetails;
     }
 
@@ -62,12 +62,12 @@ public class UserAuthentication implements Authentication {
         return userDetails.getUsername();
     }
 
-    public String getToken() {
+    String getToken() {
         return token;
     }
 
 
-    public static void authenticationErrorResponse(HttpServletRequest request, HttpServletResponse response, RuntimeException exception) throws IOException {
+    static void authenticationErrorResponse(HttpServletRequest request, HttpServletResponse response, RuntimeException exception) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 

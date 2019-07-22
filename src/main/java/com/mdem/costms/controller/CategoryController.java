@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"ALL", "deprecation"})
 @RestController
 @RequestMapping("api/category")
 @Api(tags = {"Category"}, description = "Operations for work with categories of services")
 public class CategoryController {
 
-    private CategoryService categoryService;
-    private UserService userService;
+    private final CategoryService categoryService;
+    private final UserService userService;
 
     @Autowired
     public CategoryController(CategoryService categoryService, UserService userService) {
@@ -77,7 +78,7 @@ public class CategoryController {
     @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "View a list of available categories", response = Iterable.class)
     public List<CategoryDto> getAllCategories() {
-        List<Category> categories = categoryService.getAll();
+        @SuppressWarnings("unchecked") List<Category> categories = categoryService.getAll();
         List<CategoryDto> categoriesDto = new ArrayList<>();
         for (Category category : categories) {
             categoriesDto.add(CategoryTransformer.toCategoryDto(category));

@@ -12,10 +12,10 @@ import java.util.List;
 public class FundsDao extends AbstractDao<Funds, Long> implements IFundsDao {
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Funds> getFundsByUserId(long userId) {
         Query query = getSession().createQuery("FROM " + Funds.class.getName() + " where user_id = :user_id");
         query.setParameter("user_id", userId);
-
         return (List<Funds>) query.getResultList();
     }
 }

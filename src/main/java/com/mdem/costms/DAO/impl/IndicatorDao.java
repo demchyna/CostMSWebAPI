@@ -12,6 +12,7 @@ import java.util.List;
 public class IndicatorDao extends AbstractDao<Indicator, Long> implements IIndicatorDao {
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Indicator> getIndicatorsByMeterId(long meterId) {
         Query query = getSession().createQuery("FROM " + Indicator.class.getName() + " WHERE meter_id = :meter_id ORDER BY date");
         query.setParameter("meter_id", meterId);

@@ -5,13 +5,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class UserProxy implements UserDetails {
+class UserProxy implements UserDetails {
 
-    private long id;
-    private String username;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final long id;
+    private final String username;
+    private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserProxy(long id, String username, Collection<? extends GrantedAuthority> authorities) {
+    UserProxy(long id, String username, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.authorities = authorities;

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
@@ -19,11 +20,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/user")
+@SuppressWarnings("deprecation")
 @Api(tags = {"User"}, description = "Operations for work with users")
 public class UserController {
 
-    private UserService userService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Value("${user.password.pattern}")
     private String USER_PASSWORD_PATTERN;
@@ -44,7 +46,7 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER') and #user.id == authentication.details.id)")
     @ApiOperation(value = "Update an existing user")
@@ -72,7 +74,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "View a list of available users", response = Iterable.class)
     public List<User> getAllUsers() {
-        List<User> users = userService.getAll();
+        @SuppressWarnings("unchecked") List<User> users = userService.getAll();
         users.forEach(user -> user.setPassword(""));
         return users;
     }
@@ -91,7 +93,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN') or (hasRole('USER') and #user.id == authentication.details.id)")
     @ApiOperation(value = "Check if user password is correct")
     public void checkPasswordByLogin(@RequestBody User user) {
-        User oldUser = (User) userService.getById(user.getId());
+        User oldUser = userService.getById(user.getId());
         if (!bCryptPasswordEncoder.matches(user.getPassword(), oldUser.getPassword())) {
             throw new NoDataException("Password is not correct");
         }
