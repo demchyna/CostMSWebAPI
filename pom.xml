@@ -161,11 +161,11 @@
             <location>filesystem:src/main/resources/db_scripts</location>
           </locations>
           <driver>com.mysql.jdbc.Driver</driver>
-          <url>jdbc:mysql://us-cdbr-iron-east-01.cleardb.net/heroku_c9a87fd5b00435d?reconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</url>
-          <user>bd6e4967f5f837</user>
-          <password>2c0bba3a</password>
+          <url>jdbc:mysql://eu-cdbr-west-02.cleardb.net/heroku_b6997ab1ab8963c?reconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</url>
+          <user>b849932c3ecec7</user>
+          <password>0831b886</password>
           <schemas>
-            <schema>heroku_c9a87fd5b00435d</schema>
+            <schema>heroku_b6997ab1ab8963c</schema>
           </schemas>
         </configuration>
       </plugin>
